@@ -4,11 +4,12 @@
 
 # Site
 title: khzliu's blog
-subtitle: best best the most best!
+subtitle:  喜欢dota2，喜欢科幻片，喜欢美剧!
 description:
 author: khzliu
 language:
 timezone:
+
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -60,10 +61,30 @@ time_format: HH:mm:ss
 per_page: 10
 pagination_dir: page
 
-# Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: yilia
+# 评论
+disqus_shortname:
+
+# 插件和皮肤
+## Plugins: https://github.com/tommy351/hexo/wiki/Plugins
+## Themes: https://github.com/tommy351/hexo/wiki/Themes
+theme: pacman
+exclude_generator:
+
+# Markdown语法
+## https://github.com/chjj/marked
+markdown:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true
+
+# CSS的stylus格式
+stylus:
+  compress: true
+
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
