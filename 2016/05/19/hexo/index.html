@@ -9,11 +9,8 @@
     
     <meta name="author" content="khzliu">
     
-    <meta name="description" content="#Hexo的配置#
-
-###目录和文件###
-
-scaffolds：模板文件夹，新建文章时，Hexo 会根据 scaffold 来建立文件。Hexo 有三种默认布局：post、page 和 draft，它们分别对应不同的路径。新建文件的默认布局是post，可以在配置文件中更改布局。用draft布局生">
+    <meta name="description" content="Hexo的配置目录和文件
+scaffolds：模板文件夹，新建文章时，Hexo 会根据 scaffold 来建立文件。Hexo 有三种默认布局：post、page 和 draft，它们分别对应不同的路径。新建文件的默认布局是post，可以在配置文件中更改布局。用draft布局生成的文件会被保存到 s">
     
     
     
@@ -84,7 +81,7 @@ scaffolds：模板文件夹，新建文章时，Hexo 会根据 scaffold 来建�
     </p>
   <p class="article-time">
     <time datetime="2016-05-19T04:16:49.000Z" itemprop="datePublished">2016-05-19</time>
-    Updated:<time datetime="2016-05-19T05:57:20.000Z" itemprop="dateModified">2016-05-19</time>
+    Updated:<time datetime="2016-05-19T10:55:26.000Z" itemprop="dateModified">2016-05-19</time>
     
   </p>
 </header>
@@ -93,13 +90,10 @@ scaffolds：模板文件夹，新建文章时，Hexo 会根据 scaffold 来建�
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo的配置"><span class="toc-number">1.</span> <span class="toc-text">Hexo的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录和文件"><span class="toc-number">1.0.1.</span> <span class="toc-text">目录和文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局配置"><span class="toc-number">1.0.2.</span> <span class="toc-text">全局配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主题配置"><span class="toc-number">1.0.3.</span> <span class="toc-text">主题配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本使用"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">基本使用</span></a></li></ol></li></ol></li></ol></li></ol>
 		</div>
 		
-		<p>#Hexo的配置#</p>
-<hr>
-<p>###目录和文件###</p>
-<ol>
+		<h1 id="Hexo的配置"><a href="#Hexo的配置" class="headerlink" title="Hexo的配置"></a>Hexo的配置</h1><h3 id="目录和文件"><a href="#目录和文件" class="headerlink" title="目录和文件"></a>目录和文件</h3><ol>
 <li>scaffolds：模板文件夹，新建文章时，Hexo 会根据 scaffold 来建立文件。Hexo 有三种默认布局：post、page 和 draft，它们分别对应不同的路径。新建文件的默认布局是post，可以在配置文件中更改布局。用draft布局生成的文件会被保存到 source/_drafts 文件夹。 </li>
 <li>source：资源文件夹是存放用户资源的地方。 </li>
 <li>source/_post：文件箱。（低版本的hexo还会存在一个_draft，这是草稿箱）除 posts 文件夹之外，开头命名为 (下划线)的文件/ 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去 </li>
@@ -107,93 +101,17 @@ scaffolds：模板文件夹，新建文章时，Hexo 会根据 scaffold 来建�
 <li>themes/landscape：默认的皮肤文件夹 </li>
 <li>_config.yml：全局的配置文件，每次更改要重启服务。<br><br><br>低版本的Hexo还会生成scripts文件夹，里面用于保存扩展Hexo的脚本文件。<br></li>
 </ol>
-<hr>
-<p>###全局配置###<br>可以在_config.yml 中修改：<br></p>
-<pre><code># Hexo Configuration
-## Docs: http://hexo.io/docs/configuration.html
-## Source: https://github.com/hexojs/hexo/
-# Site 站点配置
-title: Hexo-demo  #网站标题
-subtitle: hexo is simple and easy to study   #网站副标题
-description: this is hexo-demo #网栈描述
-author: pomy #你的名字
-language:  zh-CN #网站使用的语言
-timezone: Asia/Shanghai  #网站时区
-
-# URL #可以不用配置
-## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;
-url: http://yoursite.com #网址，搜索时会在搜索引擎中显示
-root: /  #网站根目录
-permalink: :year/:month/:day/:title/ #永久链接格式
-permalink_defaults: #永久链接中各部分的默认值
-
-# Directory 目录配置
-source_dir: source #资源文件夹，这个文件夹用来存放内容
-public_dir: public #公共文件夹，这个文件夹用于存放生成的站点文件
-tag_dir: tags #标签文件夹
-archive_dir: archives #归档文件夹
-category_dir: categories #分类文件夹
-code_dir: downloads/code #Include code 文件夹
-i18n_dir: :lang   #国际化文件夹
-skip_render:      #跳过指定文件的渲染，您可使用 glob 来配置路径
-
-# Writing 写作配置
-new_post_name: :title.md # 新文章的文件名称
-default_layout: post   #默认布局
-titlecase: false # Transform title into titlecase
-external_link: true # Open external links in new tab
-filename_case: 0 #把文件名称转换为 (1) 小写或 (2) 大写
-render_drafts: false #显示草稿
-post_asset_folder: false #是否启动资源文件夹
-relative_link: false #把链接改为与根目录的相对位址
-future: true  
-highlight:  
-#代码块的设置
-enable: true
-line_number: true
-auto_detect: true
-tab_replace:
-
-# Category &amp; Tag 分类 &amp; 标签
-default_category: uncategorized #默认分类
-category_map:   #分类别名   
-tag_map:        #标签别名
-
-# Date / Time format  时间和日期
-## Hexo uses Moment.js to parse and display date
-## You can customize the date format as defined in
-## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
-time_format: HH:mm:ss
-
-# Pagination 分页
-## Set per_page to 0 to disable pagination
-per_page: 10 #每页显示的文章量 (0 = 关闭分页功能)
-pagination_dir: page #分页目录
-
-# Extensions 扩展
-## Plugins: http://hexo.io/plugins/ 插件
-## Themes: http://hexo.io/themes/  主题
-theme: landscape #当前主题名称
-
-# Deployment #部署到github
-## Docs: http://hexo.io/docs/deployment.html
-deploy:
-  type:
-</code></pre><p>一般主题下有一个 languages 文件夹，用于对应 language 配置项。 比如在 ejs 中有：<br></p>
-<pre><code>&quot;&lt;%= __(&apos;tags&apos;) %&gt;：&lt;br/&gt;
+<h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><p>可以在_config.yml 中修改：<br><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: http://hexo.io/docs/configuration.html</span><br><span class="line">## Source: https://github.com/hexojs/hexo/</span><br><span class="line"># Site 站点配置</span><br><span class="line">title: Hexo-demo  #网站标题</span><br><span class="line">subtitle: hexo is simple and easy to study   #网站副标题</span><br><span class="line">description: this is hexo-demo #网栈描述</span><br><span class="line">author: pomy #你的名字</span><br><span class="line">language:  zh-CN #网站使用的语言</span><br><span class="line">timezone: Asia/Shanghai  #网站时区</span><br><span class="line"></span><br><span class="line"># URL #可以不用配置</span><br><span class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</span><br><span class="line">url: http://yoursite.com #网址，搜索时会在搜索引擎中显示</span><br><span class="line">root: /  #网站根目录</span><br><span class="line">permalink: :year/:month/:day/:title/ #永久链接格式</span><br><span class="line">permalink_defaults: #永久链接中各部分的默认值</span><br><span class="line"></span><br><span class="line"># Directory 目录配置</span><br><span class="line">source_dir: source #资源文件夹，这个文件夹用来存放内容</span><br><span class="line">public_dir: public #公共文件夹，这个文件夹用于存放生成的站点文件</span><br><span class="line">tag_dir: tags #标签文件夹</span><br><span class="line">archive_dir: archives #归档文件夹</span><br><span class="line">category_dir: categories #分类文件夹</span><br><span class="line">code_dir: downloads/code #Include code 文件夹</span><br><span class="line">i18n_dir: :lang   #国际化文件夹</span><br><span class="line">skip_render:      #跳过指定文件的渲染，您可使用 glob 来配置路径</span><br><span class="line"></span><br><span class="line"># Writing 写作配置</span><br><span class="line">new_post_name: :title.md # 新文章的文件名称</span><br><span class="line">default_layout: post   #默认布局</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">external_link: true # Open external links in new tab</span><br><span class="line">filename_case: 0 #把文件名称转换为 (1) 小写或 (2) 大写</span><br><span class="line">render_drafts: false #显示草稿</span><br><span class="line">post_asset_folder: false #是否启动资源文件夹</span><br><span class="line">relative_link: false #把链接改为与根目录的相对位址</span><br><span class="line">future: true  </span><br><span class="line">highlight:  </span><br><span class="line">#代码块的设置</span><br><span class="line">enable: true</span><br><span class="line">line_number: true</span><br><span class="line">auto_detect: true</span><br><span class="line">tab_replace:</span><br><span class="line"></span><br><span class="line"># Category &amp; Tag 分类 &amp; 标签</span><br><span class="line">default_category: uncategorized #默认分类</span><br><span class="line">category_map:   #分类别名   </span><br><span class="line">tag_map:        #标签别名</span><br><span class="line"></span><br><span class="line"># Date / Time format  时间和日期</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http://momentjs.com/docs/#/displaying/format/</span><br><span class="line">date_format: YYYY-MM-DD</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line"></span><br><span class="line"># Pagination 分页</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 10 #每页显示的文章量 (0 = 关闭分页功能)</span><br><span class="line">pagination_dir: page #分页目录</span><br><span class="line"></span><br><span class="line"># Extensions 扩展</span><br><span class="line">## Plugins: http://hexo.io/plugins/ 插件</span><br><span class="line">## Themes: http://hexo.io/themes/  主题</span><br><span class="line">theme: landscape #当前主题名称</span><br><span class="line"></span><br><span class="line"># Deployment #部署到github</span><br><span class="line">## Docs: http://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type:</span><br></pre></td></tr></table></figure></p>
+<p>一般主题下有一个 languages 文件夹，用于对应 language 配置项。 比如在 ejs 中有：<br></p>
+<pre><code>&quot;&lt;%= __(&apos;tags&apos;) %&gt;：
 </code></pre><p>language 的配置项是 zh-CN，则会在languages 文件夹下找到 zh-CN.yml 文件中对应的项来解释。<br><br>修改全局配置时，注意缩进，同时注意冒号后面要有一个空格。<br></p>
-<hr>
-<p>###主题配置###<br>主题的配置文件在<code>/themes/主题文件夹/_config.yml</code>，一般包括导航配置(menu)，内容配置(content)，评论插件，图片效果(fancybox)和边栏(sidebar)。<br></p>
+<h3 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h3><p>主题的配置文件在<code>/themes/主题文件夹/_config.yml</code>，一般包括导航配置(menu)，内容配置(content)，评论插件，图片效果(fancybox)和边栏(sidebar)。<br></p>
 <p>Hexo提高了大量的主题，可以在全局配置文件中更改主题：<br></p>
 <pre><code># Extensions 扩展
 ## Plugins: http://hexo.io/plugins/ 插件
 ## Themes: http://hexo.io/themes/  主题
 theme: 你的主题名称
-</code></pre><p>主题的文件目录必须在 themes 目录下。Hexo主题更换教程<br>更多Hexo主题戳此：Hexo Themes。</p>
-<hr>
-<p>####基本使用</p>
-<p>写文章<br>通过new命令新建一篇文章：</p>
+</code></pre><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p>写文章<br>通过new命令新建一篇文章：</p>
 <pre><code>$ hexo new [layout] &lt;title&gt;
 //same as
 hexo n
@@ -245,7 +163,7 @@ hexo n
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo的配置"><span class="toc-number">1.</span> <span class="toc-text">Hexo的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录和文件"><span class="toc-number">1.0.1.</span> <span class="toc-text">目录和文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局配置"><span class="toc-number">1.0.2.</span> <span class="toc-text">全局配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主题配置"><span class="toc-number">1.0.3.</span> <span class="toc-text">主题配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本使用"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">基本使用</span></a></li></ol></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
