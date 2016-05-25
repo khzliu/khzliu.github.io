@@ -1,2 +1,6 @@
-#khzliu的博客
-####分类测试
+---
+layout: "categories"
+title: categories
+date: 2016-05-19 14:10:14
+
+---
