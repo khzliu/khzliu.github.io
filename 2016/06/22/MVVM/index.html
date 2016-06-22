@@ -9,7 +9,7 @@
     
     <meta name="author" content="khzliu">
     
-    <meta name="description" content="MVC&amp;#x5148;&amp;#x8BF4;MVC&amp;#x6A21;&amp;#x5F0F;&amp;#xFF0C;&amp;#x5728;&amp;#x524D;&amp;#x7AEF;&amp;#x5E94;&amp;#x7528;&amp;#x5F00;&amp;#x53D1;&amp;#x4E2D;MVC&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x6700;&amp;#x7E">
+    <meta name="description" content="MVC先说MVC模式，在前端应用开发中MVC是一个最经典最常用的设计模式，也是被Apple封为神的设计模式。我个人项目应用也是最多的一种；在MVC中所有的对象被归类为一个model，一个view，或一个controller。Model持有数据，View显示与用户交互的界面，而View Control">
     
     
     
@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="khzliu&#39;s blog">khzliu&#39;s blog</a></h1>
 				<h2 class="blog-motto">喜欢dota2，喜欢科幻片，喜欢美剧!</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -57,7 +57,7 @@
 					
 					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
 					</form>
 					
 					</li>
@@ -80,7 +80,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-06-22T06:23:45.000Z" itemprop="datePublished">2016-06-22</time>
-    Updated:<time datetime="2016-06-22T08:04:09.000Z" itemprop="dateModified">2016-06-22</time>
+    更新日期:<time datetime="2016-06-22T08:49:38.000Z" itemprop="dateModified">2016-06-22</time>
     
   </p>
 </header>
@@ -88,11 +88,11 @@
 		
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MVC"><span class="toc-number">1.</span> <span class="toc-text">MVC</span></a></li></ol>
 		</div>
 		
-		<h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>&#x5148;&#x8BF4;MVC&#x6A21;&#x5F0F;&#xFF0C;&#x5728;&#x524D;&#x7AEF;&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x4E2D;MVC&#x662F;&#x4E00;&#x4E2A;&#x6700;&#x7ECF;&#x5178;&#x6700;&#x5E38;&#x7528;&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF0C;&#x4E5F;&#x662F;&#x88AB;Apple&#x5C01;&#x4E3A;&#x795E;&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x3002;&#x6211;&#x4E2A;&#x4EBA;&#x9879;&#x76EE;&#x5E94;&#x7528;&#x4E5F;&#x662F;&#x6700;&#x591A;&#x7684;&#x4E00;&#x79CD;&#xFF1B;&#x5728;MVC&#x4E2D;&#x6240;&#x6709;&#x7684;&#x5BF9;&#x8C61;&#x88AB;&#x5F52;&#x7C7B;&#x4E3A;&#x4E00;&#x4E2A;model&#xFF0C;&#x4E00;&#x4E2A;view&#xFF0C;&#x6216;&#x4E00;&#x4E2A;controller&#x3002;Model&#x6301;&#x6709;&#x6570;&#x636E;&#xFF0C;View&#x663E;&#x793A;&#x4E0E;&#x7528;&#x6237;&#x4EA4;&#x4E92;&#x7684;&#x754C;&#x9762;&#xFF0C;&#x800C;View Controller&#x8C03;&#x89E3;Model&#x548C;View&#x4E4B;&#x95F4;&#x7684;&#x4EA4;&#x4E92;&#x3002;&#x5982;&#x4E0B;&#x56FE;&#xFF08;&#x76D7;&#x56FE;&#xFF09;&#xFF1A;<br><br><img src="/2016/06/22/MVVM/mvc.jpg" alt="MVC" title="MVC"></p>
+		<h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>先说MVC模式，在前端应用开发中MVC是一个最经典最常用的设计模式，也是被Apple封为神的设计模式。我个人项目应用也是最多的一种；在MVC中所有的对象被归类为一个model，一个view，或一个controller。Model持有数据，View显示与用户交互的界面，而View Controller调解Model和View之间的交互。如下图（盗图）：<br><br><img src="http://7xoo3c.com1.z0.glb.clouddn.com/blogmvc.jpg" alt="MVC" title="MVC"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -129,20 +129,20 @@
 
 	
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
   <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MVC"><span class="toc-number">1.</span> <span class="toc-text">MVC</span></a></li></ol>
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
 			<li><a href="/categories/Xcode基础/" title="Xcode基础">Xcode基础<sup>1</sup></a></li>
@@ -155,7 +155,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
@@ -178,14 +178,14 @@
 
   
   <div class="archiveslist">
-    <p class="asidetitle"><a href="/archives">Archives</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li></ul>
   </div>
 
 
   
   <div class="tagcloudlist">
-    <p class="asidetitle">Tag Cloud</p>
+    <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
        <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
@@ -193,7 +193,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
       <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
       <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>

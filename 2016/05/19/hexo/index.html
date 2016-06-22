@@ -9,8 +9,8 @@
     
     <meta name="author" content="khzliu">
     
-    <meta name="description" content="Hexo&amp;#x7684;&amp;#x914D;&amp;#x7F6E;&amp;#x76EE;&amp;#x5F55;&amp;#x548C;&amp;#x6587;&amp;#x4EF6;
-scaffolds&amp;#xFF1A;&amp;#x6A21;&amp;#x677F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939;&amp;#xFF0C;&amp;#x65B0;&amp;#x5EFA;">
+    <meta name="description" content="Hexo的配置目录和文件
+scaffolds：模板文件夹，新建文章时，Hexo 会根据 scaffold 来建立文件。Hexo 有三种默认布局：post、page 和 draft，它们分别对应不同的路径。新建文件的默认布局是post，可以在配置文件中更改布局。用draft布局生成的文件会被保存到 s">
     
     
     
@@ -37,7 +37,7 @@ scaffolds&amp;#xFF1A;&amp;#x6A21;&amp;#x677F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939
 				<h1 class="site-name"><a href="/" title="khzliu&#39;s blog">khzliu&#39;s blog</a></h1>
 				<h2 class="blog-motto">喜欢dota2，喜欢科幻片，喜欢美剧!</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -58,7 +58,7 @@ scaffolds&amp;#xFF1A;&amp;#x6A21;&amp;#x677F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939
 					
 					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
 					</form>
 					
 					</li>
@@ -81,7 +81,7 @@ scaffolds&amp;#xFF1A;&amp;#x6A21;&amp;#x677F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939
     </p>
   <p class="article-time">
     <time datetime="2016-05-19T04:16:49.000Z" itemprop="datePublished">2016-05-19</time>
-    Updated:<time datetime="2016-05-19T10:55:26.000Z" itemprop="dateModified">2016-05-19</time>
+    更新日期:<time datetime="2016-06-22T08:18:28.000Z" itemprop="dateModified">2016-06-22</time>
     
   </p>
 </header>
@@ -89,40 +89,40 @@ scaffolds&amp;#xFF1A;&amp;#x6A21;&amp;#x677F;&amp;#x6587;&amp;#x4EF6;&amp;#x5939
 		
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo的配置"><span class="toc-number">1.</span> <span class="toc-text">Hexo的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录和文件"><span class="toc-number">1.0.1.</span> <span class="toc-text">目录和文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局配置"><span class="toc-number">1.0.2.</span> <span class="toc-text">全局配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主题配置"><span class="toc-number">1.0.3.</span> <span class="toc-text">主题配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本使用"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">基本使用</span></a></li></ol></li></ol></li></ol></li></ol>
 		</div>
 		
-		<h1 id="Hexo&#x7684;&#x914D;&#x7F6E;"><a href="#Hexo&#x7684;&#x914D;&#x7F6E;" class="headerlink" title="Hexo&#x7684;&#x914D;&#x7F6E;"></a>Hexo&#x7684;&#x914D;&#x7F6E;</h1><h3 id="&#x76EE;&#x5F55;&#x548C;&#x6587;&#x4EF6;"><a href="#&#x76EE;&#x5F55;&#x548C;&#x6587;&#x4EF6;" class="headerlink" title="&#x76EE;&#x5F55;&#x548C;&#x6587;&#x4EF6;"></a>&#x76EE;&#x5F55;&#x548C;&#x6587;&#x4EF6;</h3><ol>
-<li>scaffolds&#xFF1A;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x65B0;&#x5EFA;&#x6587;&#x7AE0;&#x65F6;&#xFF0C;Hexo &#x4F1A;&#x6839;&#x636E; scaffold &#x6765;&#x5EFA;&#x7ACB;&#x6587;&#x4EF6;&#x3002;Hexo &#x6709;&#x4E09;&#x79CD;&#x9ED8;&#x8BA4;&#x5E03;&#x5C40;&#xFF1A;post&#x3001;page &#x548C; draft&#xFF0C;&#x5B83;&#x4EEC;&#x5206;&#x522B;&#x5BF9;&#x5E94;&#x4E0D;&#x540C;&#x7684;&#x8DEF;&#x5F84;&#x3002;&#x65B0;&#x5EFA;&#x6587;&#x4EF6;&#x7684;&#x9ED8;&#x8BA4;&#x5E03;&#x5C40;&#x662F;post&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x66F4;&#x6539;&#x5E03;&#x5C40;&#x3002;&#x7528;draft&#x5E03;&#x5C40;&#x751F;&#x6210;&#x7684;&#x6587;&#x4EF6;&#x4F1A;&#x88AB;&#x4FDD;&#x5B58;&#x5230; source/_drafts &#x6587;&#x4EF6;&#x5939;&#x3002; </li>
-<li>source&#xFF1A;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x5939;&#x662F;&#x5B58;&#x653E;&#x7528;&#x6237;&#x8D44;&#x6E90;&#x7684;&#x5730;&#x65B9;&#x3002; </li>
-<li>source/_post&#xFF1A;&#x6587;&#x4EF6;&#x7BB1;&#x3002;&#xFF08;&#x4F4E;&#x7248;&#x672C;&#x7684;hexo&#x8FD8;&#x4F1A;&#x5B58;&#x5728;&#x4E00;&#x4E2A;_draft&#xFF0C;&#x8FD9;&#x662F;&#x8349;&#x7A3F;&#x7BB1;&#xFF09;&#x9664; posts &#x6587;&#x4EF6;&#x5939;&#x4E4B;&#x5916;&#xFF0C;&#x5F00;&#x5934;&#x547D;&#x540D;&#x4E3A; (&#x4E0B;&#x5212;&#x7EBF;)&#x7684;&#x6587;&#x4EF6;/ &#x6587;&#x4EF6;&#x5939;&#x548C;&#x9690;&#x85CF;&#x7684;&#x6587;&#x4EF6;&#x5C06;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;Markdown &#x548C; HTML &#x6587;&#x4EF6;&#x4F1A;&#x88AB;&#x89E3;&#x6790;&#x5E76;&#x653E;&#x5230; public &#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x800C;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4F1A;&#x88AB;&#x62F7;&#x8D1D;&#x8FC7;&#x53BB; </li>
-<li>themes&#xFF1A;&#x4E3B;&#x9898; &#x6587;&#x4EF6;&#x5939;&#x3002;Hexo &#x4F1A;&#x6839;&#x636E;&#x4E3B;&#x9898;&#x6765;&#x751F;&#x6210;&#x9759;&#x6001;&#x9875;&#x9762;&#x3002; </li>
-<li>themes/landscape&#xFF1A;&#x9ED8;&#x8BA4;&#x7684;&#x76AE;&#x80A4;&#x6587;&#x4EF6;&#x5939; </li>
-<li>_config.yml&#xFF1A;&#x5168;&#x5C40;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x6BCF;&#x6B21;&#x66F4;&#x6539;&#x8981;&#x91CD;&#x542F;&#x670D;&#x52A1;&#x3002;<br><br><br>&#x4F4E;&#x7248;&#x672C;&#x7684;Hexo&#x8FD8;&#x4F1A;&#x751F;&#x6210;scripts&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x91CC;&#x9762;&#x7528;&#x4E8E;&#x4FDD;&#x5B58;&#x6269;&#x5C55;Hexo&#x7684;&#x811A;&#x672C;&#x6587;&#x4EF6;&#x3002;<br></li>
+		<h1 id="Hexo的配置"><a href="#Hexo的配置" class="headerlink" title="Hexo的配置"></a>Hexo的配置</h1><h3 id="目录和文件"><a href="#目录和文件" class="headerlink" title="目录和文件"></a>目录和文件</h3><ol>
+<li>scaffolds：模板文件夹，新建文章时，Hexo 会根据 scaffold 来建立文件。Hexo 有三种默认布局：post、page 和 draft，它们分别对应不同的路径。新建文件的默认布局是post，可以在配置文件中更改布局。用draft布局生成的文件会被保存到 source/_drafts 文件夹。 </li>
+<li>source：资源文件夹是存放用户资源的地方。 </li>
+<li>source/_post：文件箱。（低版本的hexo还会存在一个_draft，这是草稿箱）除 posts 文件夹之外，开头命名为 (下划线)的文件/ 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去 </li>
+<li>themes：主题 文件夹。Hexo 会根据主题来生成静态页面。 </li>
+<li>themes/landscape：默认的皮肤文件夹 </li>
+<li>_config.yml：全局的配置文件，每次更改要重启服务。<br><br><br>低版本的Hexo还会生成scripts文件夹，里面用于保存扩展Hexo的脚本文件。<br></li>
 </ol>
-<h3 id="&#x5168;&#x5C40;&#x914D;&#x7F6E;"><a href="#&#x5168;&#x5C40;&#x914D;&#x7F6E;" class="headerlink" title="&#x5168;&#x5C40;&#x914D;&#x7F6E;"></a>&#x5168;&#x5C40;&#x914D;&#x7F6E;</h3><p>&#x53EF;&#x4EE5;&#x5728;_config.yml &#x4E2D;&#x4FEE;&#x6539;&#xFF1A;<br><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: http://hexo.io/docs/configuration.html</span><br><span class="line">## Source: https://github.com/hexojs/hexo/</span><br><span class="line"># Site &#x7AD9;&#x70B9;&#x914D;&#x7F6E;</span><br><span class="line">title: Hexo-demo  #&#x7F51;&#x7AD9;&#x6807;&#x9898;</span><br><span class="line">subtitle: hexo is simple and easy to study   #&#x7F51;&#x7AD9;&#x526F;&#x6807;&#x9898;</span><br><span class="line">description: this is hexo-demo #&#x7F51;&#x6808;&#x63CF;&#x8FF0;</span><br><span class="line">author: pomy #&#x4F60;&#x7684;&#x540D;&#x5B57;</span><br><span class="line">language:  zh-CN #&#x7F51;&#x7AD9;&#x4F7F;&#x7528;&#x7684;&#x8BED;&#x8A00;</span><br><span class="line">timezone: Asia/Shanghai  #&#x7F51;&#x7AD9;&#x65F6;&#x533A;</span><br><span class="line"></span><br><span class="line"># URL #&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#x914D;&#x7F6E;</span><br><span class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</span><br><span class="line">url: http://yoursite.com #&#x7F51;&#x5740;&#xFF0C;&#x641C;&#x7D22;&#x65F6;&#x4F1A;&#x5728;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x4E2D;&#x663E;&#x793A;</span><br><span class="line">root: /  #&#x7F51;&#x7AD9;&#x6839;&#x76EE;&#x5F55;</span><br><span class="line">permalink: :year/:month/:day/:title/ #&#x6C38;&#x4E45;&#x94FE;&#x63A5;&#x683C;&#x5F0F;</span><br><span class="line">permalink_defaults: #&#x6C38;&#x4E45;&#x94FE;&#x63A5;&#x4E2D;&#x5404;&#x90E8;&#x5206;&#x7684;&#x9ED8;&#x8BA4;&#x503C;</span><br><span class="line"></span><br><span class="line"># Directory &#x76EE;&#x5F55;&#x914D;&#x7F6E;</span><br><span class="line">source_dir: source #&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x5939;&#x7528;&#x6765;&#x5B58;&#x653E;&#x5185;&#x5BB9;</span><br><span class="line">public_dir: public #&#x516C;&#x5171;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x5939;&#x7528;&#x4E8E;&#x5B58;&#x653E;&#x751F;&#x6210;&#x7684;&#x7AD9;&#x70B9;&#x6587;&#x4EF6;</span><br><span class="line">tag_dir: tags #&#x6807;&#x7B7E;&#x6587;&#x4EF6;&#x5939;</span><br><span class="line">archive_dir: archives #&#x5F52;&#x6863;&#x6587;&#x4EF6;&#x5939;</span><br><span class="line">category_dir: categories #&#x5206;&#x7C7B;&#x6587;&#x4EF6;&#x5939;</span><br><span class="line">code_dir: downloads/code #Include code &#x6587;&#x4EF6;&#x5939;</span><br><span class="line">i18n_dir: :lang   #&#x56FD;&#x9645;&#x5316;&#x6587;&#x4EF6;&#x5939;</span><br><span class="line">skip_render:      #&#x8DF3;&#x8FC7;&#x6307;&#x5B9A;&#x6587;&#x4EF6;&#x7684;&#x6E32;&#x67D3;&#xFF0C;&#x60A8;&#x53EF;&#x4F7F;&#x7528; glob &#x6765;&#x914D;&#x7F6E;&#x8DEF;&#x5F84;</span><br><span class="line"></span><br><span class="line"># Writing &#x5199;&#x4F5C;&#x914D;&#x7F6E;</span><br><span class="line">new_post_name: :title.md # &#x65B0;&#x6587;&#x7AE0;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x79F0;</span><br><span class="line">default_layout: post   #&#x9ED8;&#x8BA4;&#x5E03;&#x5C40;</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">external_link: true # Open external links in new tab</span><br><span class="line">filename_case: 0 #&#x628A;&#x6587;&#x4EF6;&#x540D;&#x79F0;&#x8F6C;&#x6362;&#x4E3A; (1) &#x5C0F;&#x5199;&#x6216; (2) &#x5927;&#x5199;</span><br><span class="line">render_drafts: false #&#x663E;&#x793A;&#x8349;&#x7A3F;</span><br><span class="line">post_asset_folder: false #&#x662F;&#x5426;&#x542F;&#x52A8;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x5939;</span><br><span class="line">relative_link: false #&#x628A;&#x94FE;&#x63A5;&#x6539;&#x4E3A;&#x4E0E;&#x6839;&#x76EE;&#x5F55;&#x7684;&#x76F8;&#x5BF9;&#x4F4D;&#x5740;</span><br><span class="line">future: true  </span><br><span class="line">highlight:  </span><br><span class="line">#&#x4EE3;&#x7801;&#x5757;&#x7684;&#x8BBE;&#x7F6E;</span><br><span class="line">enable: true</span><br><span class="line">line_number: true</span><br><span class="line">auto_detect: true</span><br><span class="line">tab_replace:</span><br><span class="line"></span><br><span class="line"># Category &amp; Tag &#x5206;&#x7C7B; &amp; &#x6807;&#x7B7E;</span><br><span class="line">default_category: uncategorized #&#x9ED8;&#x8BA4;&#x5206;&#x7C7B;</span><br><span class="line">category_map:   #&#x5206;&#x7C7B;&#x522B;&#x540D;   </span><br><span class="line">tag_map:        #&#x6807;&#x7B7E;&#x522B;&#x540D;</span><br><span class="line"></span><br><span class="line"># Date / Time format  &#x65F6;&#x95F4;&#x548C;&#x65E5;&#x671F;</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http://momentjs.com/docs/#/displaying/format/</span><br><span class="line">date_format: YYYY-MM-DD</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line"></span><br><span class="line"># Pagination &#x5206;&#x9875;</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 10 #&#x6BCF;&#x9875;&#x663E;&#x793A;&#x7684;&#x6587;&#x7AE0;&#x91CF; (0 = &#x5173;&#x95ED;&#x5206;&#x9875;&#x529F;&#x80FD;)</span><br><span class="line">pagination_dir: page #&#x5206;&#x9875;&#x76EE;&#x5F55;</span><br><span class="line"></span><br><span class="line"># Extensions &#x6269;&#x5C55;</span><br><span class="line">## Plugins: http://hexo.io/plugins/ &#x63D2;&#x4EF6;</span><br><span class="line">## Themes: http://hexo.io/themes/  &#x4E3B;&#x9898;</span><br><span class="line">theme: landscape #&#x5F53;&#x524D;&#x4E3B;&#x9898;&#x540D;&#x79F0;</span><br><span class="line"></span><br><span class="line"># Deployment #&#x90E8;&#x7F72;&#x5230;github</span><br><span class="line">## Docs: http://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type:</span><br></pre></td></tr></table></figure></p>
-<p>&#x4E00;&#x822C;&#x4E3B;&#x9898;&#x4E0B;&#x6709;&#x4E00;&#x4E2A; languages &#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x7528;&#x4E8E;&#x5BF9;&#x5E94; language &#x914D;&#x7F6E;&#x9879;&#x3002; &#x6BD4;&#x5982;&#x5728; ejs &#x4E2D;&#x6709;&#xFF1A;<br></p>
-<pre><code>&quot;&lt;%= __(&apos;tags&apos;) %&gt;&#xFF1A;
-</code></pre><p>language &#x7684;&#x914D;&#x7F6E;&#x9879;&#x662F; zh-CN&#xFF0C;&#x5219;&#x4F1A;&#x5728;languages &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x627E;&#x5230; zh-CN.yml &#x6587;&#x4EF6;&#x4E2D;&#x5BF9;&#x5E94;&#x7684;&#x9879;&#x6765;&#x89E3;&#x91CA;&#x3002;<br><br>&#x4FEE;&#x6539;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x65F6;&#xFF0C;&#x6CE8;&#x610F;&#x7F29;&#x8FDB;&#xFF0C;&#x540C;&#x65F6;&#x6CE8;&#x610F;&#x5192;&#x53F7;&#x540E;&#x9762;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;&#x3002;<br></p>
-<h3 id="&#x4E3B;&#x9898;&#x914D;&#x7F6E;"><a href="#&#x4E3B;&#x9898;&#x914D;&#x7F6E;" class="headerlink" title="&#x4E3B;&#x9898;&#x914D;&#x7F6E;"></a>&#x4E3B;&#x9898;&#x914D;&#x7F6E;</h3><p>&#x4E3B;&#x9898;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5728;<code>/themes/&#x4E3B;&#x9898;&#x6587;&#x4EF6;&#x5939;/_config.yml</code>&#xFF0C;&#x4E00;&#x822C;&#x5305;&#x62EC;&#x5BFC;&#x822A;&#x914D;&#x7F6E;(menu)&#xFF0C;&#x5185;&#x5BB9;&#x914D;&#x7F6E;(content)&#xFF0C;&#x8BC4;&#x8BBA;&#x63D2;&#x4EF6;&#xFF0C;&#x56FE;&#x7247;&#x6548;&#x679C;(fancybox)&#x548C;&#x8FB9;&#x680F;(sidebar)&#x3002;<br></p>
-<p>Hexo&#x63D0;&#x9AD8;&#x4E86;&#x5927;&#x91CF;&#x7684;&#x4E3B;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x66F4;&#x6539;&#x4E3B;&#x9898;&#xFF1A;<br></p>
-<pre><code># Extensions &#x6269;&#x5C55;
-## Plugins: http://hexo.io/plugins/ &#x63D2;&#x4EF6;
-## Themes: http://hexo.io/themes/  &#x4E3B;&#x9898;
-theme: &#x4F60;&#x7684;&#x4E3B;&#x9898;&#x540D;&#x79F0;
-</code></pre><h4 id="&#x57FA;&#x672C;&#x4F7F;&#x7528;"><a href="#&#x57FA;&#x672C;&#x4F7F;&#x7528;" class="headerlink" title="&#x57FA;&#x672C;&#x4F7F;&#x7528;"></a>&#x57FA;&#x672C;&#x4F7F;&#x7528;</h4><p>&#x5199;&#x6587;&#x7AE0;<br>&#x901A;&#x8FC7;new&#x547D;&#x4EE4;&#x65B0;&#x5EFA;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#xFF1A;</p>
+<h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><p>可以在_config.yml 中修改：<br><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: http://hexo.io/docs/configuration.html</span><br><span class="line">## Source: https://github.com/hexojs/hexo/</span><br><span class="line"># Site 站点配置</span><br><span class="line">title: Hexo-demo  #网站标题</span><br><span class="line">subtitle: hexo is simple and easy to study   #网站副标题</span><br><span class="line">description: this is hexo-demo #网栈描述</span><br><span class="line">author: pomy #你的名字</span><br><span class="line">language:  zh-CN #网站使用的语言</span><br><span class="line">timezone: Asia/Shanghai  #网站时区</span><br><span class="line"></span><br><span class="line"># URL #可以不用配置</span><br><span class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</span><br><span class="line">url: http://yoursite.com #网址，搜索时会在搜索引擎中显示</span><br><span class="line">root: /  #网站根目录</span><br><span class="line">permalink: :year/:month/:day/:title/ #永久链接格式</span><br><span class="line">permalink_defaults: #永久链接中各部分的默认值</span><br><span class="line"></span><br><span class="line"># Directory 目录配置</span><br><span class="line">source_dir: source #资源文件夹，这个文件夹用来存放内容</span><br><span class="line">public_dir: public #公共文件夹，这个文件夹用于存放生成的站点文件</span><br><span class="line">tag_dir: tags #标签文件夹</span><br><span class="line">archive_dir: archives #归档文件夹</span><br><span class="line">category_dir: categories #分类文件夹</span><br><span class="line">code_dir: downloads/code #Include code 文件夹</span><br><span class="line">i18n_dir: :lang   #国际化文件夹</span><br><span class="line">skip_render:      #跳过指定文件的渲染，您可使用 glob 来配置路径</span><br><span class="line"></span><br><span class="line"># Writing 写作配置</span><br><span class="line">new_post_name: :title.md # 新文章的文件名称</span><br><span class="line">default_layout: post   #默认布局</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">external_link: true # Open external links in new tab</span><br><span class="line">filename_case: 0 #把文件名称转换为 (1) 小写或 (2) 大写</span><br><span class="line">render_drafts: false #显示草稿</span><br><span class="line">post_asset_folder: false #是否启动资源文件夹</span><br><span class="line">relative_link: false #把链接改为与根目录的相对位址</span><br><span class="line">future: true  </span><br><span class="line">highlight:  </span><br><span class="line">#代码块的设置</span><br><span class="line">enable: true</span><br><span class="line">line_number: true</span><br><span class="line">auto_detect: true</span><br><span class="line">tab_replace:</span><br><span class="line"></span><br><span class="line"># Category &amp; Tag 分类 &amp; 标签</span><br><span class="line">default_category: uncategorized #默认分类</span><br><span class="line">category_map:   #分类别名   </span><br><span class="line">tag_map:        #标签别名</span><br><span class="line"></span><br><span class="line"># Date / Time format  时间和日期</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http://momentjs.com/docs/#/displaying/format/</span><br><span class="line">date_format: YYYY-MM-DD</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line"></span><br><span class="line"># Pagination 分页</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 10 #每页显示的文章量 (0 = 关闭分页功能)</span><br><span class="line">pagination_dir: page #分页目录</span><br><span class="line"></span><br><span class="line"># Extensions 扩展</span><br><span class="line">## Plugins: http://hexo.io/plugins/ 插件</span><br><span class="line">## Themes: http://hexo.io/themes/  主题</span><br><span class="line">theme: landscape #当前主题名称</span><br><span class="line"></span><br><span class="line"># Deployment #部署到github</span><br><span class="line">## Docs: http://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type:</span><br></pre></td></tr></table></figure></p>
+<p>一般主题下有一个 languages 文件夹，用于对应 language 配置项。 比如在 ejs 中有：<br></p>
+<pre><code>&quot;&lt;%= __(&apos;tags&apos;) %&gt;：
+</code></pre><p>language 的配置项是 zh-CN，则会在languages 文件夹下找到 zh-CN.yml 文件中对应的项来解释。<br><br>修改全局配置时，注意缩进，同时注意冒号后面要有一个空格。<br></p>
+<h3 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h3><p>主题的配置文件在<code>/themes/主题文件夹/_config.yml</code>，一般包括导航配置(menu)，内容配置(content)，评论插件，图片效果(fancybox)和边栏(sidebar)。<br></p>
+<p>Hexo提高了大量的主题，可以在全局配置文件中更改主题：<br></p>
+<pre><code># Extensions 扩展
+## Plugins: http://hexo.io/plugins/ 插件
+## Themes: http://hexo.io/themes/  主题
+theme: 你的主题名称
+</code></pre><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p>写文章<br>通过new命令新建一篇文章：</p>
 <pre><code>$ hexo new [layout] &lt;title&gt;
 //same as
 hexo n
-</code></pre><p>&#x5176;&#x4E2D;layout&#x662F;&#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;post&#x3002;</p>
-<p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E; layout &#x7684;&#x8BDD;&#xFF0C;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528; _config.yml &#x4E2D;&#x7684; default_layout &#x53C2;&#x6570;&#x4EE3;&#x66FF;&#x3002;&#x5982;&#x679C;&#x6807;&#x9898;&#x5305;&#x542B;&#x7A7A;&#x683C;&#x7684;&#x8BDD;&#xFF0C;&#x9700;&#x7528;&#x5F15;&#x53F7;&#x62EC;&#x8D77;&#x6765;&#x3002;<br>Hexo&#x63D0;&#x4F9B;&#x7684;layout&#x5728;scaffolds&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x6B64;&#x76EE;&#x5F55;&#x4E0B;&#x81EA;&#x5EFA;layout&#x6587;&#x4EF6;&#x3002;&#x65B0;&#x5EFA;&#x7684;&#x6587;&#x4EF6;&#x5219;&#x4F1A;&#x4FDD;&#x5B58;&#x5230;source/_post&#x76EE;&#x5F55;&#x4E0B;&#x3002;</p>
-<p>&#x7136;&#x540E;&#x542F;&#x52A8;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4FBF;&#x80FD;&#x770B;&#x5230;&#x521A;&#x521A;&#x53D1;&#x8868;&#x7684;&#x6587;&#x7AE0;</p>
-<p>&#x53D1;&#x8868;&#x7684;&#x6587;&#x7AE0;&#x4F1A;&#x5168;&#x90E8;&#x663E;&#x793A;&#xFF0C;&#x5982;&#x679C;&#x6587;&#x7AE0;&#x5F88;&#x957F;&#xFF0C;&#x5C31;&#x53EA;&#x8981;&#x663E;&#x793A;&#x6587;&#x7AE0;&#x7684;&#x6458;&#x8981;&#x5C31;&#x884C;&#x4E86;&#x3002;&#x5728;&#x9700;&#x8981;&#x663E;&#x793A;&#x6458;&#x8981;&#x7684;&#x5730;&#x65B9;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x4EE3;&#x7801;&#x5373;&#x53EF;&#xFF1A;</p>
-<pre><code>&#x4EE5;&#x4E0A;&#x662F;&#x6458;&#x8981;
+</code></pre><p>其中layout是可选参数，默认值为post。</p>
+<p>如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，需用引号括起来。<br>Hexo提供的layout在scaffolds目录下，也可以在此目录下自建layout文件。新建的文件则会保存到source/_post目录下。</p>
+<p>然后启动服务器，便能看到刚刚发表的文章</p>
+<p>发表的文章会全部显示，如果文章很长，就只要显示文章的摘要就行了。在需要显示摘要的地方添加如下代码即可：</p>
+<pre><code>以上是摘要
 &lt;!--more--&gt;
-&#x4EE5;&#x4E0B;&#x662F;&#x4F59;&#x4E0B;&#x5168;&#x6587;
-</code></pre><p>&#x539F;&#x6587;&#xFF1A;<a href="http://www.ido321.com/1650.html" target="_blank" rel="external">http://www.ido321.com/1650.html</a></p>
+以下是余下全文
+</code></pre><p>原文：<a href="http://www.ido321.com/1650.html" target="_blank" rel="external">http://www.ido321.com/1650.html</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -167,20 +167,20 @@ hexo n
 
 	
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
   <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo的配置"><span class="toc-number">1.</span> <span class="toc-text">Hexo的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录和文件"><span class="toc-number">1.0.1.</span> <span class="toc-text">目录和文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局配置"><span class="toc-number">1.0.2.</span> <span class="toc-text">全局配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主题配置"><span class="toc-number">1.0.3.</span> <span class="toc-text">主题配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本使用"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">基本使用</span></a></li></ol></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
 			<li><a href="/categories/Xcode基础/" title="Xcode基础">Xcode基础<sup>1</sup></a></li>
@@ -193,7 +193,7 @@ hexo n
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
@@ -216,14 +216,14 @@ hexo n
 
   
   <div class="archiveslist">
-    <p class="asidetitle"><a href="/archives">Archives</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li></ul>
   </div>
 
 
   
   <div class="tagcloudlist">
-    <p class="asidetitle">Tag Cloud</p>
+    <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
        <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
@@ -231,7 +231,7 @@ hexo n
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
       <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
       <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
