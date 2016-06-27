@@ -81,7 +81,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-06-23T14:52:03.000Z" itemprop="datePublished">2016-06-23</time>
-    更新日期:<time datetime="2016-06-27T06:34:38.000Z" itemprop="dateModified">2016-06-27</time>
+    更新日期:<time datetime="2016-06-27T09:23:44.000Z" itemprop="dateModified">2016-06-27</time>
     
   </p>
 </header>
@@ -231,7 +231,42 @@ struct objc_class {
 - (void)forwardInvocation:(NSInvocation*)invocaton;
 </code></pre><p>消息派发系统依照类的继承关系逐一寻找能够处理该NSInvacation的对象，直到NSObject，如果最后调用了NSObject类方法，那么该方法还会继续调用<code>doesNotRecognizeSelecter:</code>以抛出异常。</p>
 <p>最后陪一个能够理解的图：<br><img src="http://7xoo3c.com1.z0.glb.clouddn.com/blogmethod_forwarding.png" alt="消息转发机制流程图" title="消息转发机制流程图"></p>
-<h3 id="※※※※-一个objc对象如何进行内存布局？（考虑有父类的情况）"><a href="#※※※※-一个objc对象如何进行内存布局？（考虑有父类的情况）" class="headerlink" title="[※※※※]一个objc对象如何进行内存布局？（考虑有父类的情况）"></a>[※※※※]一个objc对象如何进行内存布局？（考虑有父类的情况）</h3><h3 id="※※※※-一个objc对象的isa的指针指向什么？有什么作用？"><a href="#※※※※-一个objc对象的isa的指针指向什么？有什么作用？" class="headerlink" title="[※※※※]一个objc对象的isa的指针指向什么？有什么作用？"></a>[※※※※]一个objc对象的isa的指针指向什么？有什么作用？</h3><h3 id="※※※※-下面的代码输出什么？"><a href="#※※※※-下面的代码输出什么？" class="headerlink" title="[※※※※]下面的代码输出什么？"></a>[※※※※]下面的代码输出什么？</h3><pre><code>@implementation Son : Father
+<h3 id="※※※※-一个objc对象如何进行内存布局？（考虑有父类的情况）"><a href="#※※※※-一个objc对象如何进行内存布局？（考虑有父类的情况）" class="headerlink" title="[※※※※]一个objc对象如何进行内存布局？（考虑有父类的情况）"></a>[※※※※]一个objc对象如何进行内存布局？（考虑有父类的情况）</h3><ul>
+<li>一个objc对象的存储空间中保存着该对象的所有实例变量和该对象所有父类的所有实例变量</li>
+<li>每个对象都有一个isa指针，这个指针指向该objc对象的类对象，此类对象在Runtime环境中只有一份儿，并且和其它类对象有着相同的结构，此类对象中存储的是：</li>
+</ul>
+<p>typedef struct objc_class *Class;</p>
+<pre><code>/*
+  这是由编译器为每个类产生的数据结构,这个结构定义了一个类.
+  这个结构是通过编译器在执行时产生,在运行时发送消息时使用.
+  因此,一些成员改变了类型.
+  编译器产生&quot;char* const&quot;类型的字符串指针替代了下面的成员变量&quot;super_class&quot;
+*/
+struct objc_class {
+  struct objc_class*  class_pointer;    /* 指向元类的指针. */
+  struct objc_class*  super_class;      /* 指向父类的指针. 对于NSObject来说是NULL.*/
+  const char*         name;             /* 类的名称. */
+  long                version;          /* 未知. */
+  unsigned long       info;             /* 比特蒙板.  参考下面类的蒙板定义. */
+  long                instance_size;    /* 类的字节数.包含类的定义和所有父类的定义 */
+#ifdef _WIN64
+  long pad;
+#endif
+  struct objc_ivar_list* ivars;         /* 指向类中定义的实例变量的列表结构. NULL代表没有实例变量.不包括父类的变量. */
+  struct objc_method_list*  methods;    /* 链接类中定义的实例方法. */
+  struct sarray *    dtable;            /* 指向实例方法分配表. */
+  struct objc_class* subclass_list;     /* 父类列表 */
+  struct objc_class* sibling_class;
+  struct objc_protocol_list *protocols; /* 要实现的原型列表 */
+  void* gc_object_type;
+};
+</code></pre><p>该类也有一个isa指针，它指向该类的元类，元类的作用类似于类作用于类对象，保存了该类的类方法信息。</p>
+<p>引用网上常列举的一张图：<br><img src="http://7xoo3c.com1.z0.glb.clouddn.com/blogmeta_calss.png" alt="内存布局图" title="类内存布局图"></p>
+<h3 id="※※※※-一个objc对象的isa的指针指向什么？有什么作用？"><a href="#※※※※-一个objc对象的isa的指针指向什么？有什么作用？" class="headerlink" title="[※※※※]一个objc对象的isa的指针指向什么？有什么作用？"></a>[※※※※]一个objc对象的isa的指针指向什么？有什么作用？</h3><ol>
+<li>实例对象的isa指向该实例的类对象，类对象的isa指向该类的元类，元类的isa指向自己。</li>
+<li>类对象保存着该类的成员列表信息，方法列表信息等。元类保存着该类对象的类方法列表。</li>
+</ol>
+<h3 id="※※※※-下面的代码输出什么？"><a href="#※※※※-下面的代码输出什么？" class="headerlink" title="[※※※※]下面的代码输出什么？"></a>[※※※※]下面的代码输出什么？</h3><pre><code>@implementation Son : Father
 - (id)init
 {
     self = [super init];
@@ -242,7 +277,40 @@ struct objc_class {
     return self;
 }
 @end
-</code></pre><h3 id="runtime-如何实现-weak-属性"><a href="#runtime-如何实现-weak-属性" class="headerlink" title="[*]runtime 如何实现 weak 属性?"></a>[*]runtime 如何实现 weak 属性?</h3><h3 id="※※※※-runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）"><a href="#※※※※-runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）" class="headerlink" title="[※※※※]runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）"></a>[※※※※]runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）</h3><h3 id="※※※※-使用runtime-Associate方法关联的对象，需要在主对象dealloc的时候释放么？"><a href="#※※※※-使用runtime-Associate方法关联的对象，需要在主对象dealloc的时候释放么？" class="headerlink" title="[※※※※]使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？"></a>[※※※※]使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？</h3><h3 id="※※※※※-objc中的类方法和实例方法有什么本质区别和联系？"><a href="#※※※※※-objc中的类方法和实例方法有什么本质区别和联系？" class="headerlink" title="[※※※※※]objc中的类方法和实例方法有什么本质区别和联系？"></a>[※※※※※]objc中的类方法和实例方法有什么本质区别和联系？</h3><h3 id="※※※※※-objc-msgForward函数是做什么的，直接调用它将会发生什么？"><a href="#※※※※※-objc-msgForward函数是做什么的，直接调用它将会发生什么？" class="headerlink" title="[※※※※※]_objc_msgForward函数是做什么的，直接调用它将会发生什么？"></a>[※※※※※]_objc_msgForward函数是做什么的，直接调用它将会发生什么？</h3><h3 id="※※※※※-runtime如何实现weak变量的自动置nil？"><a href="#※※※※※-runtime如何实现weak变量的自动置nil？" class="headerlink" title="[※※※※※]runtime如何实现weak变量的自动置nil？"></a>[※※※※※]runtime如何实现weak变量的自动置nil？</h3><h3 id="※※※※※-能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"><a href="#※※※※※-能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？" class="headerlink" title="[※※※※※]能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"></a>[※※※※※]能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？</h3><h3 id="※※※-runloop和线程有什么关系？"><a href="#※※※-runloop和线程有什么关系？" class="headerlink" title="[※※※]runloop和线程有什么关系？"></a>[※※※]runloop和线程有什么关系？</h3><h3 id="※※※-runloop的mode作用是什么？"><a href="#※※※-runloop的mode作用是什么？" class="headerlink" title="[※※※]runloop的mode作用是什么？"></a>[※※※]runloop的mode作用是什么？</h3><h3 id="※※※※-以-scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？"><a href="#※※※※-以-scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？" class="headerlink" title="[※※※※]以+ scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？"></a>[※※※※]以+ scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？</h3><h3 id="※※※※※-猜想runloop内部是如何实现的？"><a href="#※※※※※-猜想runloop内部是如何实现的？" class="headerlink" title="[※※※※※]猜想runloop内部是如何实现的？"></a>[※※※※※]猜想runloop内部是如何实现的？</h3><h3 id="※-objc使用什么机制管理对象内存？"><a href="#※-objc使用什么机制管理对象内存？" class="headerlink" title="[※]objc使用什么机制管理对象内存？"></a>[※]objc使用什么机制管理对象内存？</h3><h3 id="※※※※-ARC通过什么方式帮助开发者管理内存？"><a href="#※※※※-ARC通过什么方式帮助开发者管理内存？" class="headerlink" title="[※※※※]ARC通过什么方式帮助开发者管理内存？"></a>[※※※※]ARC通过什么方式帮助开发者管理内存？</h3><h3 id="※※※※-不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）"><a href="#※※※※-不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）" class="headerlink" title="[※※※※]不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）"></a>[※※※※]不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）</h3><h3 id="※※※※-BAD-ACCESS在什么情况下出现？"><a href="#※※※※-BAD-ACCESS在什么情况下出现？" class="headerlink" title="[※※※※]BAD_ACCESS在什么情况下出现？"></a>[※※※※]BAD_ACCESS在什么情况下出现？</h3><h3 id="※※※※※-苹果是如何实现autoreleasepool的？"><a href="#※※※※※-苹果是如何实现autoreleasepool的？" class="headerlink" title="[※※※※※]苹果是如何实现autoreleasepool的？"></a>[※※※※※]苹果是如何实现autoreleasepool的？</h3><h3 id="※※-使用block时什么情况会发生引用循环，如何解决？"><a href="#※※-使用block时什么情况会发生引用循环，如何解决？" class="headerlink" title="[※※]使用block时什么情况会发生引用循环，如何解决？"></a>[※※]使用block时什么情况会发生引用循环，如何解决？</h3><h3 id="※※-在block内如何修改block外部变量？"><a href="#※※-在block内如何修改block外部变量？" class="headerlink" title="[※※]在block内如何修改block外部变量？"></a>[※※]在block内如何修改block外部变量？</h3><h3 id="※※※-使用系统的某些block-api（如UIView的block版本写动画时），是否也考虑引用循环问题？"><a href="#※※※-使用系统的某些block-api（如UIView的block版本写动画时），是否也考虑引用循环问题？" class="headerlink" title="[※※※]使用系统的某些block api（如UIView的block版本写动画时），是否也考虑引用循环问题？"></a>[※※※]使用系统的某些block api（如UIView的block版本写动画时），是否也考虑引用循环问题？</h3><h3 id="※※-GCD的队列（dispatch-queue-t）分哪两种类型？"><a href="#※※-GCD的队列（dispatch-queue-t）分哪两种类型？" class="headerlink" title="[※※]GCD的队列（dispatch_queue_t）分哪两种类型？"></a>[※※]GCD的队列（dispatch_queue_t）分哪两种类型？</h3><h3 id="※※※※-如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）"><a href="#※※※※-如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）" class="headerlink" title="[※※※※]如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）"></a>[※※※※]如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）</h3><h3 id="※※※※-dispatch-barrier-async的作用是什么？"><a href="#※※※※-dispatch-barrier-async的作用是什么？" class="headerlink" title="[※※※※]dispatch_barrier_async的作用是什么？"></a>[※※※※]dispatch_barrier_async的作用是什么？</h3><h3 id="※※※※※-苹果为什么要废弃dispatch-get-current-queue？"><a href="#※※※※※-苹果为什么要废弃dispatch-get-current-queue？" class="headerlink" title="[※※※※※]苹果为什么要废弃dispatch_get_current_queue？"></a>[※※※※※]苹果为什么要废弃dispatch_get_current_queue？</h3><h3 id="※※※※※-以下代码运行结果如何？"><a href="#※※※※※-以下代码运行结果如何？" class="headerlink" title="[※※※※※]以下代码运行结果如何？"></a>[※※※※※]以下代码运行结果如何？</h3><pre><code>- (void)viewDidLoad
+</code></pre><p>都输出：Son，答案：<a href="http://chun.tips/blog/2014/11/05/bao-gen-wen-di-objective%5Bnil%5Dc-runtime(1)%5Bnil%5D-self-and-super/" target="_blank" rel="external">http://chun.tips/blog/2014/11/05/bao-gen-wen-di-objective%5Bnil%5Dc-runtime(1)%5Bnil%5D-self-and-super/</a></p>
+<pre><code>2014-11-05 11:06:18.060 Test[8566:568584] NSStringFromClass([self class]) = Son
+2014-11-05 11:06:18.061 Test[8566:568584] NSStringFromClass([super class]) = Son
+</code></pre><p>解惑：这个题目主要是考察关于objc中对 self 和 super 的理解。</p>
+<p>self 是类的隐藏参数，指向当前调用方法的这个类的实例。而 super 是一个 Magic Keyword， 它本质是一个编译器标示符，和 self 是指向的同一个消息接受者。上面的例子不管调用[self class]还是[super class]，接受消息的对象都是当前 Son ＊xxx 这个对象。而不同的是，super是告诉编译器，调用 class 这个方法时，要去父类的方法，而不是本类里的。</p>
+<p>当使用 self 调用方法时，会从当前类的方法列表中开始找，如果没有，就从父类中再找；而当使用 super 时，则从父类的方法列表中开始找。然后调用父类的这个方法。</p>
+<p>真的是这样吗？继续看：</p>
+<p>使用clang重写命令:</p>
+<pre><code>$ clang -rewrite-objc test.m
+</code></pre><p>发现上述代码被转化为:</p>
+<pre><code>NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_gm_0jk35cwn1d3326x0061qym280000gn_T_main_a5cecc_mi_0, NSStringFromClass(((Class (*)(id, SEL))(void *)objc_msgSend)((id)self, sel_registerName(&quot;class&quot;))));
+
+NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_gm_0jk35cwn1d3326x0061qym280000gn_T_main_a5cecc_mi_1, NSStringFromClass(((Class (*)(__rw_objc_super *, SEL))(void *)objc_msgSendSuper)((__rw_objc_super){ (id)self, (id)class_getSuperclass(objc_getClass(&quot;Son&quot;)) }, sel_registerName(&quot;class&quot;))));
+</code></pre><p>从上面的代码中，我们可以发现在调用<code>[self class]</code>时，会转化成<code>objc_msgSend</code>函数。看下函数定义：</p>
+<pre><code>id objc_msgSend(id self, SEL op, ...)
+</code></pre><p>我们把<code>self</code>做为第一个参数传递进去。</p>
+<p>而在调用<code>[super class]</code>时，会转化成<code>objc_msgSendSuper</code>函数。看下函数定义:</p>
+<pre><code>id objc_msgSendSuper(struct objc_super *super, SEL op, ...)
+</code></pre><p>第一个参数是<code>objc_super</code>这样一个结构体，其定义如下:</p>
+<pre><code>struct objc_super {
+   __unsafe_unretained id receiver;
+   __unsafe_unretained Class super_class;
+};
+</code></pre><p>结构体有两个成员，第一个成员是<code>receiver</code>, 类似于上面的<code>objc_msgSend</code>函数第一个参数<code>self</code>。第二个成员是记录当前类的父类是什么。</p>
+<p>所以，当调用<code>[self class]</code>时，实际先调用的是<code>objc_msgSend</code>函数，第一个参数是<code>Son</code>当前的这个实例，然后在<code>Son</code>这个类里面去找 <code>- (Class)class</code>这个方法，没有，去父类 Father里找，也没有，最后在 NSObject类中发现这个方法。而 <code>- (Class)class</code>的实现就是返回self的类别，故上述输出结果为 Son。</p>
+<p>objc Runtime开源代码对- (Class)class方法的实现:</p>
+<pre><code>- (Class)class {
+    return object_getClass(self);
+}
+</code></pre><p>而当调用<code>[super class]</code>时，会转换成<code>objc_msgSendSuper</code>函数。第一步先构造<code>objc_super</code>结构体，结构体第一个成员就是 self 。第二个成员是 <code>(id)class_getSuperclass(objc_getClass(“Son”))</code>, 实际该函数输出结果为 Father。第二步是去 Father这个类里去找<code>- (Class)class</code>，没有，然后去NSObject类去找，找到了。最后内部是使用<code>objc_msgSend(objc_super-&gt;receiver, @selector(class))</code>去调用，此时已经和<code>[self class]</code>调用相同了，故上述输出结果仍然返回 <code>Son</code>。</p>
+<blockquote>
+<p>参考：<a href="http://chun.tips/blog/2014/11/05/bao-gen-wen-di-objective%5Bnil%5Dc-runtime(1)%5Bnil%5D-self-and-super/" target="_blank" rel="external">http://chun.tips/blog/2014/11/05/bao-gen-wen-di-objective%5Bnil%5Dc-runtime(1)%5Bnil%5D-self-and-super/</a></p>
+</blockquote>
+<h3 id="runtime-如何实现-weak-属性"><a href="#runtime-如何实现-weak-属性" class="headerlink" title="[*]runtime 如何实现 weak 属性?"></a>[*]runtime 如何实现 weak 属性?</h3><h3 id="※※※※-runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）"><a href="#※※※※-runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）" class="headerlink" title="[※※※※]runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）"></a>[※※※※]runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）</h3><h3 id="※※※※-使用runtime-Associate方法关联的对象，需要在主对象dealloc的时候释放么？"><a href="#※※※※-使用runtime-Associate方法关联的对象，需要在主对象dealloc的时候释放么？" class="headerlink" title="[※※※※]使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？"></a>[※※※※]使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？</h3><h3 id="※※※※※-objc中的类方法和实例方法有什么本质区别和联系？"><a href="#※※※※※-objc中的类方法和实例方法有什么本质区别和联系？" class="headerlink" title="[※※※※※]objc中的类方法和实例方法有什么本质区别和联系？"></a>[※※※※※]objc中的类方法和实例方法有什么本质区别和联系？</h3><h3 id="※※※※※-objc-msgForward函数是做什么的，直接调用它将会发生什么？"><a href="#※※※※※-objc-msgForward函数是做什么的，直接调用它将会发生什么？" class="headerlink" title="[※※※※※]_objc_msgForward函数是做什么的，直接调用它将会发生什么？"></a>[※※※※※]_objc_msgForward函数是做什么的，直接调用它将会发生什么？</h3><h3 id="※※※※※-runtime如何实现weak变量的自动置nil？"><a href="#※※※※※-runtime如何实现weak变量的自动置nil？" class="headerlink" title="[※※※※※]runtime如何实现weak变量的自动置nil？"></a>[※※※※※]runtime如何实现weak变量的自动置nil？</h3><h3 id="※※※※※-能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"><a href="#※※※※※-能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？" class="headerlink" title="[※※※※※]能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"></a>[※※※※※]能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？</h3><h3 id="※※※-runloop和线程有什么关系？"><a href="#※※※-runloop和线程有什么关系？" class="headerlink" title="[※※※]runloop和线程有什么关系？"></a>[※※※]runloop和线程有什么关系？</h3><h3 id="※※※-runloop的mode作用是什么？"><a href="#※※※-runloop的mode作用是什么？" class="headerlink" title="[※※※]runloop的mode作用是什么？"></a>[※※※]runloop的mode作用是什么？</h3><h3 id="※※※※-以-scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？"><a href="#※※※※-以-scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？" class="headerlink" title="[※※※※]以+ scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？"></a>[※※※※]以+ scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？</h3><h3 id="※※※※※-猜想runloop内部是如何实现的？"><a href="#※※※※※-猜想runloop内部是如何实现的？" class="headerlink" title="[※※※※※]猜想runloop内部是如何实现的？"></a>[※※※※※]猜想runloop内部是如何实现的？</h3><h3 id="※-objc使用什么机制管理对象内存？"><a href="#※-objc使用什么机制管理对象内存？" class="headerlink" title="[※]objc使用什么机制管理对象内存？"></a>[※]objc使用什么机制管理对象内存？</h3><h3 id="※※※※-ARC通过什么方式帮助开发者管理内存？"><a href="#※※※※-ARC通过什么方式帮助开发者管理内存？" class="headerlink" title="[※※※※]ARC通过什么方式帮助开发者管理内存？"></a>[※※※※]ARC通过什么方式帮助开发者管理内存？</h3><h3 id="※※※※-不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）"><a href="#※※※※-不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）" class="headerlink" title="[※※※※]不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）"></a>[※※※※]不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的viewDidLoad中创建）</h3><h3 id="※※※※-BAD-ACCESS在什么情况下出现？"><a href="#※※※※-BAD-ACCESS在什么情况下出现？" class="headerlink" title="[※※※※]BAD_ACCESS在什么情况下出现？"></a>[※※※※]BAD_ACCESS在什么情况下出现？</h3><h3 id="※※※※※-苹果是如何实现autoreleasepool的？"><a href="#※※※※※-苹果是如何实现autoreleasepool的？" class="headerlink" title="[※※※※※]苹果是如何实现autoreleasepool的？"></a>[※※※※※]苹果是如何实现autoreleasepool的？</h3><h3 id="※※-使用block时什么情况会发生引用循环，如何解决？"><a href="#※※-使用block时什么情况会发生引用循环，如何解决？" class="headerlink" title="[※※]使用block时什么情况会发生引用循环，如何解决？"></a>[※※]使用block时什么情况会发生引用循环，如何解决？</h3><h3 id="※※-在block内如何修改block外部变量？"><a href="#※※-在block内如何修改block外部变量？" class="headerlink" title="[※※]在block内如何修改block外部变量？"></a>[※※]在block内如何修改block外部变量？</h3><h3 id="※※※-使用系统的某些block-api（如UIView的block版本写动画时），是否也考虑引用循环问题？"><a href="#※※※-使用系统的某些block-api（如UIView的block版本写动画时），是否也考虑引用循环问题？" class="headerlink" title="[※※※]使用系统的某些block api（如UIView的block版本写动画时），是否也考虑引用循环问题？"></a>[※※※]使用系统的某些block api（如UIView的block版本写动画时），是否也考虑引用循环问题？</h3><h3 id="※※-GCD的队列（dispatch-queue-t）分哪两种类型？"><a href="#※※-GCD的队列（dispatch-queue-t）分哪两种类型？" class="headerlink" title="[※※]GCD的队列（dispatch_queue_t）分哪两种类型？"></a>[※※]GCD的队列（dispatch_queue_t）分哪两种类型？</h3><h3 id="※※※※-如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）"><a href="#※※※※-如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）" class="headerlink" title="[※※※※]如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）"></a>[※※※※]如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）</h3><h3 id="※※※※-dispatch-barrier-async的作用是什么？"><a href="#※※※※-dispatch-barrier-async的作用是什么？" class="headerlink" title="[※※※※]dispatch_barrier_async的作用是什么？"></a>[※※※※]dispatch_barrier_async的作用是什么？</h3><h3 id="※※※※※-苹果为什么要废弃dispatch-get-current-queue？"><a href="#※※※※※-苹果为什么要废弃dispatch-get-current-queue？" class="headerlink" title="[※※※※※]苹果为什么要废弃dispatch_get_current_queue？"></a>[※※※※※]苹果为什么要废弃dispatch_get_current_queue？</h3><h3 id="※※※※※-以下代码运行结果如何？"><a href="#※※※※※-以下代码运行结果如何？" class="headerlink" title="[※※※※※]以下代码运行结果如何？"></a>[※※※※※]以下代码运行结果如何？</h3><pre><code>- (void)viewDidLoad
 {
     [super viewDidLoad];
     NSLog(@&quot;1&quot;);
