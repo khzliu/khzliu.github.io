@@ -1,0 +1,466 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Objective-C底层数据结构 | khzliu&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="khzliu">
+    
+    <meta name="description" content="[转]Objective-C底层数据结构类的数据结构Class(指针)typedef struct objc_class *Class;
+
+/*
+  这是由编译器为每个类产生的数据结构,这个结构定义了一个类.这个结构是通过编译器在执行时产生,在运行时发送消息时使用.因此,一些成员改变了类型.编译器产">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="khzliu&#39;s blog" title="khzliu&#39;s blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="khzliu&#39;s blog">khzliu&#39;s blog</a></h1>
+				<h2 class="blog-motto">喜欢dota2，喜欢科幻片，喜欢美剧!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/works">作品</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/27/oc-struct/" title="Objective-C底层数据结构" itemprop="url">Objective-C底层数据结构</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://blog.khzliu.net" title="khzliu">khzliu</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-06-27T05:46:34.000Z" itemprop="datePublished">2016-06-27</time>
+    Updated:<time datetime="2016-06-27T06:01:44.000Z" itemprop="dateModified">2016-06-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#转-Objective-C底层数据结构"><span class="toc-number">1.</span> <span class="toc-text">[转]Objective-C底层数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#类的数据结构"><span class="toc-number">1.1.</span> <span class="toc-text">类的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Class-指针"><span class="toc-number">1.1.1.</span> <span class="toc-text">Class(指针)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-指针"><span class="toc-number">1.1.2.</span> <span class="toc-text">Method(指针)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ivar-指针"><span class="toc-number">1.1.3.</span> <span class="toc-text">Ivar(指针)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Category-指针"><span class="toc-number">1.1.4.</span> <span class="toc-text">Category(指针)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-property-t"><span class="toc-number">1.1.5.</span> <span class="toc-text">objc_property_t</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IMP"><span class="toc-number">1.1.6.</span> <span class="toc-text">IMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SEL"><span class="toc-number">1.1.7.</span> <span class="toc-text">SEL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-method-list"><span class="toc-number">1.1.8.</span> <span class="toc-text">objc_method_list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-cache"><span class="toc-number">1.1.9.</span> <span class="toc-text">objc_cache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-protocol-list"><span class="toc-number">1.1.10.</span> <span class="toc-text">objc_protocol_list</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例的数据结构"><span class="toc-number">1.2.</span> <span class="toc-text">实例的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#id"><span class="toc-number">1.2.1.</span> <span class="toc-text">id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-object"><span class="toc-number">1.2.2.</span> <span class="toc-text">objc_object</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-super"><span class="toc-number">1.2.3.</span> <span class="toc-text">objc_super</span></a></li></ol></li></ol></li></ol>
+		</div>
+		
+		<h1 id="转-Objective-C底层数据结构"><a href="#转-Objective-C底层数据结构" class="headerlink" title="[转]Objective-C底层数据结构"></a>[转]Objective-C底层数据结构</h1><h2 id="类的数据结构"><a href="#类的数据结构" class="headerlink" title="类的数据结构"></a>类的数据结构</h2><h3 id="Class-指针"><a href="#Class-指针" class="headerlink" title="Class(指针)"></a>Class(指针)</h3><pre><code>typedef struct objc_class *Class;
+
+/*
+  这是由编译器为每个类产生的数据结构,这个结构定义了一个类.这个结构是通过编译器在执行时产生,在运行时发送消息时使用.因此,一些成员改变了类型.编译器产生&quot;char* const&quot;类型的字符串指针替代了下面的成员变量&quot;super_class&quot;
+*/
+struct objc_class {
+  struct objc_class*  class_pointer;    /* 指向元类的指针. */
+  struct objc_class*  super_class;      /* 指向父类的指针. 对于NSObject来说是NULL.*/
+  const char*         name;             /* 类的名称. */
+  long                version;          /* 未知. */
+  unsigned long       info;             /* 比特蒙板.  参考下面类的蒙板定义. */
+  long                instance_size;    /* 类的字节数.包含类的定义和所有父类的定义 */
+#ifdef _WIN64
+  long pad;
+#endif
+  struct objc_ivar_list* ivars;         /* 指向类中定义的实例变量的列表结构. NULL代表没有实例变量.不包括父类的变量. */
+  struct objc_method_list*  methods;    /* 链接类中定义的实例方法. */
+  struct sarray *    dtable;            /* 指向实例方法分配表. */
+  struct objc_class* subclass_list;     /* 父类列表 */
+  struct objc_class* sibling_class;
+  struct objc_protocol_list *protocols; /* 要实现的原型列表 */
+  void* gc_object_type;
+};
+</code></pre><h3 id="Method-指针"><a href="#Method-指针" class="headerlink" title="Method(指针)"></a>Method(指针)</h3><pre><code>typedef struct objc_method *Method;
+
+/* 编译器依据类中定义的方法为该类产生一个或更多这种这种结构.
+    一个类的实现可以分散在一个文件中不同部分,同时类别可以分散在不同的模块中.为了处理这个问题,使用一个单独的方法链表 */
+struct objc_method
+{
+  SEL         method_name;  /* 这个变量就是方法的名称.编译器使用在这里使用一个`char*`,当一个方法被注册,名称在运行时被使用真正的SEL替代  */
+  const char* method_types; /* 描述方法的参数列表. 在运行时注册选择器时使用.那时候方法名就会包含方法的参数列表.*/
+  IMP         method_imp;   /* 方法执行时候的地址. */
+};
+</code></pre><h3 id="Ivar-指针"><a href="#Ivar-指针" class="headerlink" title="Ivar(指针)"></a>Ivar(指针)</h3><pre><code>typedef struct objc_ivar *Ivar;
+
+/* 编译器依据类中定义的实例变量为该类产生一个或更多这种这种结构  */
+struct objc_ivar
+{
+  const char* ivar_name;  /* 类中定义的变量名. */
+  const char* ivar_type;  /* 描述变量的类型.调试时非常有用. */
+  int        ivar_offset; /* 实例结构的基地址偏移字节 */
+};
+</code></pre><h3 id="Category-指针"><a href="#Category-指针" class="headerlink" title="Category(指针)"></a>Category(指针)</h3><pre><code>typedef struct objc_category *Category;
+
+/* 编译器为每个类别产生一个这样的结构.一个类可以具有多个类别同时既包括实例方法,也可以包括类方法*/
+struct objc_category
+{
+  const char*   category_name;                /* 类别名.定义在类别后面的括号内*/
+  const char*   class_name;                   /* 类名 */
+  struct objc_method_list  *instance_methods; /* 链接类中定义的实例方法. NULL表示没有实例方法. */
+  struct objc_method_list *class_methods;     /* 链接类中定义的类方法. NULL表示没有类方法. */
+  struct objc_protocol_list *protocols;       /* 遵循的协议表  */
+};
+</code></pre><h3 id="objc-property-t"><a href="#objc-property-t" class="headerlink" title="objc_property_t"></a>objc_property_t</h3><pre><code>typedef struct objc_property *objc_property_t;
+</code></pre><h3 id="IMP"><a href="#IMP" class="headerlink" title="IMP"></a>IMP</h3><pre><code>id (*IMP)(id, SEL, ...)
+</code></pre><h3 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h3><pre><code>typedef struct objc_selector *SEL;
+
+struct objc_selector
+{
+  void *sel_id;
+  const char *sel_types;
+};
+</code></pre><h3 id="objc-method-list"><a href="#objc-method-list" class="headerlink" title="objc_method_list"></a>objc_method_list</h3><pre><code>struct objc_method_list
+{
+  struct objc_method_list*  method_next; /* 这个变量用来链接另一个单独的方法链表 */
+  int            method_count;            /* 结构中定义的方法数量 */
+  struct objc_method method_list[1];      /* 可变长度的结构 */
+};
+</code></pre><h3 id="objc-cache"><a href="#objc-cache" class="headerlink" title="objc_cache"></a>objc_cache</h3><pre><code>struct objc_cache
+{
+    unsigned int mask;
+    unsigned int occupied;
+    Method buckets[1];
+};
+</code></pre><h3 id="objc-protocol-list"><a href="#objc-protocol-list" class="headerlink" title="objc_protocol_list"></a>objc_protocol_list</h3><pre><code>struct objc_protocol_list
+{
+  struct objc_protocol_list *next;
+  size_t count;
+  struct objc_protocol *list[1];
+};
+</code></pre><h2 id="实例的数据结构"><a href="#实例的数据结构" class="headerlink" title="实例的数据结构"></a>实例的数据结构</h2><h3 id="id"><a href="#id" class="headerlink" title="id"></a>id</h3><pre><code>typedef struct objc_object *id;
+</code></pre><h3 id="objc-object"><a href="#objc-object" class="headerlink" title="objc_object"></a>objc_object</h3><pre><code>struct objc_object
+{
+  /* 类的指针是对象相关的类.如果是一个类对象, 这个指针指向元类.
+  Class isa;
+};
+</code></pre><h3 id="objc-super"><a href="#objc-super" class="headerlink" title="objc_super"></a>objc_super</h3><pre><code>struct objc_super
+{
+  id    self;        /* 消息的接受者  */
+  Class super_class; /* 接受者的父类  */
+};
+</code></pre><blockquote>
+<p>原文地址：<a href="http://iostour.diandian.com/post/2013-01-16/40047469315" target="_blank" rel="external">http://iostour.diandian.com/post/2013-01-16/40047469315</a></p>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Objective-C/">Objective-C</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Objective-C语言/">Objective-C语言</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://blog.khzliu.net/2016/06/27/oc-struct/" data-title="Objective-C底层数据结构 | khzliu&#39;s blog" data-tsina="undefined" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/06/23/interview-checklist/"  title="iOS面试题总结">
+ <strong>NEXT:</strong><br/> 
+ <span>iOS面试题总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#转-Objective-C底层数据结构"><span class="toc-number">1.</span> <span class="toc-text">[转]Objective-C底层数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#类的数据结构"><span class="toc-number">1.1.</span> <span class="toc-text">类的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Class-指针"><span class="toc-number">1.1.1.</span> <span class="toc-text">Class(指针)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-指针"><span class="toc-number">1.1.2.</span> <span class="toc-text">Method(指针)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ivar-指针"><span class="toc-number">1.1.3.</span> <span class="toc-text">Ivar(指针)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Category-指针"><span class="toc-number">1.1.4.</span> <span class="toc-text">Category(指针)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-property-t"><span class="toc-number">1.1.5.</span> <span class="toc-text">objc_property_t</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IMP"><span class="toc-number">1.1.6.</span> <span class="toc-text">IMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SEL"><span class="toc-number">1.1.7.</span> <span class="toc-text">SEL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-method-list"><span class="toc-number">1.1.8.</span> <span class="toc-text">objc_method_list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-cache"><span class="toc-number">1.1.9.</span> <span class="toc-text">objc_cache</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-protocol-list"><span class="toc-number">1.1.10.</span> <span class="toc-text">objc_protocol_list</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例的数据结构"><span class="toc-number">1.2.</span> <span class="toc-text">实例的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#id"><span class="toc-number">1.2.1.</span> <span class="toc-text">id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-object"><span class="toc-number">1.2.2.</span> <span class="toc-text">objc_object</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-super"><span class="toc-number">1.2.3.</span> <span class="toc-text">objc_super</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+			<li><a href="/categories/Objective-C语言/" title="Objective-C语言">Objective-C语言<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Xcode基础/" title="Xcode基础">Xcode基础<sup>1</sup></a></li>
+		
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		
+			<li><a href="/categories/日常记事/" title="日常记事">日常记事<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/HybridApp/" title="HybridApp">HybridApp<sup>0</sup></a></li>
+		
+			<li><a href="/tags/Javascript/" title="Javascript">Javascript<sup>0</sup></a></li>
+		
+			<li><a href="/tags/Objective-C/" title="Objective-C">Objective-C<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Webview/" title="Webview">Webview<sup>0</sup></a></li>
+		
+			<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+		
+			<li><a href="/tags/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		
+			<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>1</sup></a></li>
+		
+			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">Archives</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
+  </div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Objective-C/" style="font-size: 10px;">Objective-C</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m khzliu. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/1819020590" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/khzliu" target="_blank" title="github"></a>
+		
+		
+		<a href="https://www.facebook.com/khzliu" target="_blank" title="facebook"></a>
+		
+		
+        <a href="https://www.linkedin.com//in/khzliu" target="_blank" title="linkedin"></a>
+        
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://blog.khzliu.net" target="_blank" title="khzliu">khzliu</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>
