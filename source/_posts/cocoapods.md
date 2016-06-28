@@ -2,6 +2,7 @@
 title: 使用cocoapods管理第三方库
 tags: [iOS]
 categories: iOS
+language: zh-CN
 
 ---
 

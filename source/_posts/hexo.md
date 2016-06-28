@@ -2,6 +2,8 @@
 title: Hexo 配置说明
 date: 2016-05-19 12:16:49
 tags: [Hexo]
+language: zh-CN
+
 
 ---
 

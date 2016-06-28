@@ -2,6 +2,8 @@
 title: 通过dSYM分析crash Log
 tags: [Xcode]
 categories: Xcode基础
+language: zh-CN
+
 
 ---
 
